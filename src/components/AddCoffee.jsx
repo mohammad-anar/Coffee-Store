@@ -1,35 +1,46 @@
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 const AddCoffee = () => {
-    const handleAddCoffee = e => {
-        e.preventDefault();
+  const handleAddCoffee = (e) => {
+    e.preventDefault();
 
-        const form = e.target;
-        const name = form.name.value;
-        const quantity = form.quantity.value;
-        const supplier = form.supplier.value;
-        const taste = form.taste.value;
-        const category = form.category.value;
-        const details = form.details.value;
-        const photo = form.photo.value;
+    const form = e.target;
+    const name = form.name.value;
+    const quantity = form.quantity.value;
+    const supplier = form.supplier.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const photo = form.photo.value;
 
-        const newCoffee = {name, quantity, supplier, taste, category, details, photo};
-        console.log(newCoffee);
-        fetch('http://localhost:5000/coffee', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(newCoffee)
-
-        })
-        .then(res => res.json())
-        .then(data => {console.log(data), Swal.fire({
-            title: 'Successfully added',
-            text: 'You can check on database',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })})
-    }
+    const newCoffee = {
+      name,
+      quantity,
+      supplier,
+      taste,
+      category,
+      details,
+      photo,
+    };
+    console.log(newCoffee);
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged === true) {
+          Swal.fire({
+            title: "Successfully added",
+            text: "You can check on database",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+        }
+      });
+  };
   return (
     <div>
       <div className="w-[1000px] mx-auto text-center my-5 p-8">
@@ -49,18 +60,20 @@ const AddCoffee = () => {
               </label>
               <input
                 type="text"
-                name='name'
+                name="name"
                 placeholder="Enter Name: "
                 className="input input-bordered"
               />
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text text-lg mb-4 font-bold">Available Quantity</span>
+                <span className="label-text text-lg mb-4 font-bold">
+                  Available Quantity
+                </span>
               </label>
               <input
                 type="text"
-                name='quantity'
+                name="quantity"
                 placeholder="Enter quantity"
                 className="input input-bordered w-full"
               />
@@ -70,11 +83,13 @@ const AddCoffee = () => {
           <div className="flex items-center gap-5 w-full mt-8">
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text text-lg mb-4 font-bold">Supplier</span>
+                <span className="label-text text-lg mb-4 font-bold">
+                  Supplier
+                </span>
               </label>
               <input
                 type="text"
-                name='supplier'
+                name="supplier"
                 placeholder="Enter Supplier: "
                 className="input input-bordered"
               />
@@ -85,7 +100,7 @@ const AddCoffee = () => {
               </label>
               <input
                 type="text"
-                name='taste'
+                name="taste"
                 placeholder="Taste:"
                 className="input input-bordered w-full"
               />
@@ -95,22 +110,26 @@ const AddCoffee = () => {
           <div className="flex items-center gap-5 w-full mt-8">
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text text-lg mb-4 font-bold">Category</span>
+                <span className="label-text text-lg mb-4 font-bold">
+                  Category
+                </span>
               </label>
               <input
                 type="text"
-                name='category'
+                name="category"
                 placeholder="Enter Category: "
                 className="input input-bordered"
               />
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text text-lg mb-4 font-bold">Details</span>
+                <span className="label-text text-lg mb-4 font-bold">
+                  Details
+                </span>
               </label>
               <input
                 type="text"
-                name='details'
+                name="details"
                 placeholder="Enter Details"
                 className="input input-bordered w-full"
               />
@@ -120,22 +139,23 @@ const AddCoffee = () => {
           <div className="flex items-center gap-5 w-full mt-8">
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text text-lg mb-4 font-bold">Photo URL</span>
+                <span className="label-text text-lg mb-4 font-bold">
+                  Photo URL
+                </span>
               </label>
               <input
                 type="text"
-                name='photo'
+                name="photo"
                 placeholder="Photo URL: "
                 className="input input-bordered"
               />
             </div>
           </div>
           <input
-                type="submit"
-                
-                className="input bg-stone-600 text-white mt-4 w-full"
-                value="Add Coffee"
-              />
+            type="submit"
+            className="input bg-stone-600 text-white mt-4 w-full"
+            value="Add Coffee"
+          />
         </form>
       </div>
     </div>
